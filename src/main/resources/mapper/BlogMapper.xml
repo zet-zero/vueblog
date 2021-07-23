@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vueblog.mapper.BlogMapper">
+    <select id="selectList" resultType="com.vueblog.entity.BlogDTO">
+        select * from m_blog where user_id = #{id} and status = 1
+    </select>
+
+    <select id="selectOne" resultType="com.vueblog.entity.Blog" parameterType="com.vueblog.entity.Blog">
+        select * from m_blog
+        <if test="Blog != null">
+            <where>
+                id = #{Blog.id}
+            </where>
+        </if>
+    </select>
+
+    <insert id="addOne" parameterType="com.vueblog.entity.Blog">
+        insert into m_blog
+        values (null, #{Blog.userId}, #{Blog.title}, #{Blog.description}, #{Blog.content}, #{Blog.created}, #{Blog.status})
+    </insert>
+
+    <update id="updateOne" parameterType="com.vueblog.entity.Blog">
+        update m_blog
+        set title = #{Blog.title}, description = #{Blog.description} ,content = #{Blog.content},
+            status = #{Blog.status}
+        where id = #{Blog.id}
+    </update>
+
+</mapper>
